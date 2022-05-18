@@ -34,7 +34,7 @@ contract CryptoDev is ERC721Enumerable, Ownable {
     // presale end timestamp
     uint256 public presaleEnded;
 
-    constructor (string memory baseURI, address _whitelistContract) ERC721("Crypto Dev", "CD") {
+    constructor (string memory baseURI, address _whitelistContract) ERC721 ("Crypto Dev", "CD") {
         _baseTokenURI = baseURI;
         whitelist = IWhitelist(_whitelistContract);
     }
@@ -55,7 +55,7 @@ contract CryptoDev is ERC721Enumerable, Ownable {
         require(tokenIds < maxTokenIds, "Limit reached");
         require(msg.value >= _price, "Not enough ETH");
         require(whitelist.whitelistedAddresses(msg.sender), "Caller not whitelisted");
-        tokenIds += 1;
+        tokenIds = totalSupply();
         _safeMint(msg.sender, tokenIds);
     }
 
